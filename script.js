@@ -36,14 +36,17 @@ async function start() {
 }
 
 function loadLabeledImages() {
-  const labels = ['Hyakuya mikaela', 'Hyakuya Yuuichirou']
+  const labels = ['Hyakuya Mikaela', 'Hyakuya Yuuichirou']
   return Promise.all(
     labels.map(async label => {
       const descriptions = []
       for (let i = 1; i <= 5; i++) {
-        const img = await faceapi.fetchImage(`https://www.dropbox.com/sh/bza6lgcgudde66y/AACgTsslXe7d15jv0oicU8cka?dl=0${label}/${i}.jpg`)
+        const img = await faceapi.fetchImage(`https://raw.githubusercontent.com/Hyakuya/facereqo/master/labeled_images/${label}/${i}.jpg`)
         const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
-        descriptions.push(detections.descriptor)
+        if(!null ==detections ) {
+          descriptions.push(detections.descriptor)
+          
+        }
       }
 
       return new faceapi.LabeledFaceDescriptors(label, descriptions)
