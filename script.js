@@ -43,9 +43,9 @@ function loadLabeledImages() {
       for (let i = 1; i <= 10; i++) {
         const img = await faceapi.fetchImage(`https://raw.githubusercontent.com/Hyakuya/facereqo/master/labeled_images/${label}/${i}.jpg`)
         const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
-        descriptions.push(detections.descriptor)
-        if(detections == null ) {
-          console.log(i, label)
+        if(detections == undefined) {console.log(i, label)}
+        if(!detections == undefined ) {
+          descriptions.push(detections.descriptor)
         }
           
       
